@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html class="light" lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title data-i18n="home.pageTitle">Kütüphane Giriş Sistemi</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700&amp;display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#30bae8",
+            "brand": "#B91C1C",
+            "background-light": "#f6f7f8",
+            "background-dark": "#111d21",
+          },
+          fontFamily: {
+            "display": ["Lexend", "sans-serif"]
+          },
+          borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+        },
+      },
+    }
+  </script>
+  <style>
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.55);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      z-index: 50;
+      backdrop-filter: blur(6px);
+    }
+    .modal-overlay.active {
+      display: flex;
+    }
+    .modal-content {
+      width: min(90vw, 600px);
+      max-height: min(90vh, 640px);
+      background: #fff;
+      border-radius: 24px;
+      box-shadow: 0 30px 80px rgba(15, 23, 42, 0.25);
+      overflow: hidden;
+      position: relative;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+    }
+    .modal-body {
+      padding: 24px;
+      max-height: calc(90vh - 60px);
+      overflow-y: auto;
+      background: rgba(255, 255, 255, 0.95);
+    }
+    .modal-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      border: none;
+      background: rgba(241, 245, 249, 0.92);
+      color: #0f172a;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.15);
+    }
+    .modal-close:hover {
+      background: #e2e8f0;
+    }
+    .material-symbols-outlined {
+      font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+    }
+    body {
+      min-height: 100vh;
+      background: linear-gradient(130deg, #f1f5f9 0%, #ffffff 50%, #e9f2ff 100%);
+      font-family: "Lexend", sans-serif;
+      display: flex;
+      justify-content: center;
+      padding: clamp(16px, 4vw, 48px);
+    }
+    .page-container {
+      width: min(100%, 1024px);
+      background-color: rgba(255, 255, 255, 0.92);
+      border-radius: 36px;
+      box-shadow: 0 20px 60px rgba(15, 23, 42, 0.15);
+      padding: clamp(24px, 4vw, 64px);
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+    .content-panel {
+      border-radius: 28px;
+      padding: clamp(20px, 3vw, 36px);
+      background: #fff;
+      border: 1px solid rgba(148,163,184,0.3);
+      box-shadow: 0 10px 40px rgba(15,23,42,0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: clamp(16px, 3vw, 32px);
+    }
+    .info-card {
+      border-radius: 24px;
+      padding: 20px;
+      background: rgba(255,255,255,0.96);
+      border: 1px solid rgba(148,163,184,0.35);
+      box-shadow: 0 8px 30px rgba(15,23,42,0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .info-card figure {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .info-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    @media (max-width: 640px) {
+      .page-container {
+        border-radius: 20px;
+        padding: 24px 20px 32px;
+      }
+    }
+  </style>
+</head>
+<body class="font-display text-slate-800">
+  <div class="page-container">
+    <header class="flex flex-wrap items-center gap-4 rounded-full border border-slate-200 bg-white/90 px-5 py-3 shadow-sm">
+      <img src="./main-logo-affix.png" alt="Millî Kütüphane Logosu" class="h-10 w-auto" />
+      <div class="hidden sm:flex flex-col leading-tight">
+        <span class="text-sm font-bold text-brand" data-i18n="common.logoTitle">Millî Kütüphane</span>
+        <span class="text-[11px] uppercase tracking-[0.35em] text-slate-500" data-i18n="common.logoSubtitle">Kütüphaneler ve Yayınlar GM</span>
+      </div>
+    </header>
+
+      <main class="content-panel">
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <div class="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/15 text-primary">
+              <span class="material-symbols-outlined !text-4xl">local_library</span>
+            </div>
+            <h1 class="text-3xl font-bold tracking-tight text-slate-900" data-i18n="home.heroTitle">Millî Kütüphaneye Hoş Geldiniz</h1>
+            <p class="mt-2 text-slate-600" data-i18n="home.heroDescription">Lütfen giriş yapmak için bir yöntem seçin.</p>
+          </div>
+          <div class="flex gap-2">
+            <button id="open-settings-modal" type="button" class="flex h-10 w-10 items-center justify-center rounded-full bg-white border border-slate-200 shadow-sm transition-colors hover:bg-slate-50">
+              <span class="material-symbols-outlined text-slate-600">language</span>
+        </button>
+            <button id="open-settings-modal-accessibility" type="button" class="flex h-10 w-10 items-center justify-center rounded-full bg-white border border-slate-200 shadow-sm transition-colors hover:bg-slate-50">
+              <span class="material-symbols-outlined text-slate-600">accessibility_new</span>
+        </button>
+      </div>
+    </div>
+
+      <div class="flex flex-col gap-3">
+          <button data-route="./auth.html?method=tc" class="flex w-full items-center justify-between rounded-xl h-14 px-5 bg-slate-50 text-slate-800 text-base font-medium transition-all hover:bg-slate-100 border border-slate-200">
+            <span class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-primary">badge</span>
+              <span data-i18n="home.login.tc">T.C. Kimlik ile Giriş</span>
+            </span>
+            <span class="material-symbols-outlined text-primary">chevron_right</span>
+          </button>
+          <button data-route="./auth.html?method=ykn" class="flex w-full items-center justify-between rounded-xl h-14 px-5 bg-slate-50 text-slate-800 text-base font-medium transition-all hover:bg-slate-100 border border-slate-200">
+            <span class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-primary">passport</span>
+              <span data-i18n="home.login.ykn">YKN/Pasaport ile Giriş</span>
+            </span>
+            <span class="material-symbols-outlined text-primary">chevron_right</span>
+        </button>
+          <button data-route="./auth.html?method=digital" class="flex w-full items-center justify-between rounded-xl h-14 px-5 bg-slate-50 text-slate-800 text-base font-medium transition-all hover:bg-slate-100 border border-slate-200">
+            <span class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-primary">qr_code_scanner</span>
+              <span data-i18n="home.login.digital">Dijital Kimlik ile Giriş</span>
+            </span>
+            <span class="material-symbols-outlined text-primary">chevron_right</span>
+        </button>
+          <button data-route="./auth.html?method=edevlet" class="flex w-full items-center justify-between rounded-xl h-14 px-5 bg-slate-50 text-slate-800 text-base font-medium transition-all hover:bg-slate-100 border border-slate-200">
+            <span class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-primary">account_balance</span>
+              <span data-i18n="home.login.edevlet">e-Devlet ile Giriş</span>
+            </span>
+            <span class="material-symbols-outlined text-primary">chevron_right</span>
+        </button>
+      </div>
+
+        <div class="flex flex-wrap items-center gap-4 text-sm justify-between pt-4 border-t border-slate-200">
+          <div class="flex gap-4">
+            <a class="text-slate-600 hover:text-primary transition-colors" href="./foreign-register.html" data-i18n="home.links.foreign">Yeni Yabancı Üyelik Kaydı</a>
+            <a class="text-slate-600 hover:text-primary transition-colors" href="./help.html" data-i18n="home.links.help">Yardım &amp; Destek</a>
+          </div>
+          <span class="text-xs uppercase tracking-[0.4em] text-slate-400" data-i18n="home.links.kiosk">Kiosk 24/7</span>
+        </div>
+      </main>
+
+      <div class="info-grid">
+        <div class="info-card">
+          <p class="text-xs uppercase tracking-[0.4em] text-slate-400" data-i18n="home.stats.activeSessionsLabel">Aktif Oturum</p>
+          <p class="info-value">1.248</p>
+          <p class="text-sm text-slate-500" data-i18n="home.stats.activeSessionsDesc">Bugün sisteme giriş yapan toplam kullanıcı.</p>
+        </div>
+        <div class="info-card">
+          <p class="text-xs uppercase tracking-[0.4em] text-slate-400" data-i18n="home.stats.occupancyLabel">Salon Doluluğu</p>
+          <p class="info-value">%72</p>
+          <p class="text-sm text-slate-500" data-i18n="home.stats.occupancyDesc">Ana Çalışma Salonu şu anda orta yoğunlukta.</p>
+        </div>
+        <div class="info-card">
+          <p class="text-xs uppercase tracking-[0.4em] text-slate-400" data-i18n="home.stats.hoursLabel">Çalışma Saatleri</p>
+          <p class="info-value">24/7</p>
+          <p class="text-sm text-slate-500" data-i18n="home.stats.hoursDesc">Kiosk destek hattı kesintisiz hizmet verir.</p>
+          <span class="material-symbols-outlined text-primary !text-4xl">local_library</span>
+        </div>
+      </div>
+    </div>
+  <div id="settings-modal" class="modal-overlay" aria-hidden="true">
+    <div class="modal-content" role="dialog" aria-modal="true" aria-label="Ayarlar">
+      <button type="button" id="settings-modal-close" class="modal-close" aria-label="Kapat">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+      <div class="modal-body">
+        <h2 class="text-[#111618] dark:text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 text-left pb-3 pt-5" data-i18n="settings.language.title">Dil Seçimi</h2>
+        <div class="flex flex-col sm:flex-row gap-3 p-4">
+          <label class="flex-1 language-option">
+            <input checked="" class="peer hidden" name="language" type="radio" data-language-option="tr"/>
+            <div class="flex h-full cursor-pointer items-center justify-center rounded-lg border border-solid border-[#dce3e5] dark:border-gray-700 p-4 text-center text-sm font-medium text-[#111618] dark:text-white transition-colors hover:border-primary/50 dark:hover:border-primary/50 peer-checked:border-primary peer-checked:bg-primary/10 dark:peer-checked:bg-primary/20 peer-checked:ring-2 peer-checked:ring-primary" data-i18n="settings.language.tr">
+              Türkçe
+            </div>
+          </label>
+          <label class="flex-1 language-option">
+            <input class="peer hidden" name="language" type="radio" data-language-option="en"/>
+            <div class="flex h-full cursor-pointer items-center justify-center rounded-lg border border-solid border-[#dce3e5] dark:border-gray-700 p-4 text-center text-sm font-medium text-[#111618] dark:text-white transition-colors hover:border-primary/50 dark:hover:border-primary/50 peer-checked:border-primary peer-checked:bg-primary/10 dark:peer-checked:bg-primary/20 peer-checked:ring-2 peer-checked:ring-primary" data-i18n="settings.language.en">
+              English
+            </div>
+          </label>
+          <label class="flex-1 language-option">
+            <input class="peer hidden" name="language" type="radio" data-language-option="ar"/>
+            <div class="flex h-full cursor-pointer items-center justify-center rounded-lg border border-solid border-[#dce3e5] dark:border-gray-700 p-4 text-center text-sm font-medium text-[#111618] dark:text-white transition-colors hover:border-primary/50 dark:hover:border-primary/50 peer-checked:border-primary peer-checked:bg-primary/10 dark:peer-checked:bg-primary/20 peer-checked:ring-2 peer-checked:ring-primary" data-i18n="settings.language.ar">
+              العربية
+            </div>
+          </label>
+        </div>
+        <h2 class="text-[#111618] dark:text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 text-left pb-3 pt-5 mt-4" data-i18n="settings.accessibility.title">Erişilebilirlik</h2>
+        <div class="flex flex-col gap-3 p-4">
+          <label class="flex items-center justify-between gap-4 rounded-lg border border-solid border-[#dce3e5] dark:border-gray-700 p-4 cursor-pointer hover:border-primary/50 dark:hover:border-primary/50 transition-colors">
+            <div class="flex flex-col">
+              <p class="text-[#111618] dark:text-white text-sm font-medium leading-normal" data-i18n="settings.accessibility.largeText">Büyük Yazı Tipi</p>
+            </div>
+            <input class="form-switch h-6 w-11 shrink-0 cursor-pointer appearance-none rounded-full border-2 border-transparent bg-[#dce3e5] dark:bg-gray-700 checked:border-none checked:bg-primary focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 dark:focus:ring-offset-background-dark/50" role="switch" type="checkbox"/>
+          </label>
+          <label class="flex items-center justify-between gap-4 rounded-lg border border-solid border-[#dce3e5] dark:border-gray-700 p-4 cursor-pointer hover:border-primary/50 dark:hover:border-primary/50 transition-colors">
+            <div class="flex flex-col">
+              <p class="text-[#111618] dark:text-white text-sm font-medium leading-normal" data-i18n="settings.accessibility.highContrast">Yüksek Kontrast</p>
+            </div>
+            <input class="form-switch h-6 w-11 shrink-0 cursor-pointer appearance-none rounded-full border-2 border-transparent bg-[#dce3e5] dark:bg-gray-700 checked:border-none checked:bg-primary focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 dark:focus:ring-offset-background-dark/50" role="switch" type="checkbox"/>
+          </label>
+          <label class="flex items-center justify-between gap-4 rounded-lg border border-solid border-[#dce3e5] dark:border-gray-700 p-4 cursor-pointer hover:border-primary/50 dark:hover:border-primary/50 transition-colors">
+            <div class="flex flex-col">
+              <p class="text-[#111618] dark:text-white text-sm font-medium leading-normal" data-i18n="settings.accessibility.screenReader">Ekran Okuyucu</p>
+            </div>
+            <input class="form-switch h-6 w-11 shrink-0 cursor-pointer appearance-none rounded-full border-2 border-transparent bg-[#dce3e5] dark:bg-gray-700 checked:border-none checked:bg-primary focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 dark:focus:ring-offset-background-dark/50" role="switch" type="checkbox"/>
+          </label>
+          <label class="flex items-center justify-between gap-4 rounded-lg border border-solid border-[#dce3e5] dark:border-gray-700 p-4 cursor-pointer hover:border-primary/50 dark:hover:border-primary/50 transition-colors">
+            <div class="flex flex-col">
+              <p class="text-[#111618] dark:text-white text-sm font-medium leading-normal" data-i18n="settings.accessibility.voiceGuidance">Sesli Yönlendirme</p>
+            </div>
+            <input class="form-switch h-6 w-11 shrink-0 cursor-pointer appearance-none rounded-full border-2 border-transparent bg-[#dce3e5] dark:bg-gray-700 checked:border-none checked:bg-primary focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 dark:focus:ring-offset-background-dark/50" role="switch" type="checkbox"/>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<script src="./i18n.js"></script>
+<script src="./router.js"></script>
+<script>
+  (function () {
+    const modal = document.getElementById("settings-modal");
+    const openBtn = document.getElementById("open-settings-modal");
+    const openAccessibilityBtn = document.getElementById("open-settings-modal-accessibility");
+    const closeBtn = document.getElementById("settings-modal-close");
+
+    if (!modal || !openBtn || !closeBtn) return;
+
+    // Load current language selection
+    const loadLanguageSelection = () => {
+      const currentLang = localStorage.getItem("mk-lang") || "tr";
+      const radio = modal.querySelector(`input[data-language-option="${currentLang}"]`);
+      if (radio) {
+        radio.checked = true;
+      }
+    };
+
+    const openModal = () => {
+      loadLanguageSelection();
+      modal.classList.add("active");
+      modal.setAttribute("aria-hidden", "false");
+    };
+
+    const closeModal = () => {
+      modal.classList.remove("active");
+      modal.setAttribute("aria-hidden", "true");
+    };
+
+    // Handle language change
+    const languageOptions = modal.querySelectorAll('input[name="language"]');
+    languageOptions.forEach((option) => {
+      option.addEventListener("change", (event) => {
+        const selectedLang = event.target.getAttribute("data-language-option");
+        if (selectedLang && window.i18n) {
+          window.i18n.setLanguage(selectedLang);
+        }
+      });
+    });
+
+    openBtn.addEventListener("click", (event) => {
+      event.preventDefault();
+      openModal();
+    });
+
+    if (openAccessibilityBtn) {
+      openAccessibilityBtn.addEventListener("click", (event) => {
+        event.preventDefault();
+        openModal();
+      });
+    }
+
+    closeBtn.addEventListener("click", closeModal);
+
+    modal.addEventListener("click", (event) => {
+      if (event.target === modal) {
+        closeModal();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && modal.classList.contains("active")) {
+        closeModal();
+      }
+    });
+  })();
+</script>
+</html>
+
+
