@@ -1,0 +1,14 @@
+{
+  "name": "milli-k",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "lite-server --baseDir=.",
+    "start": "lite-server --baseDir=."
+  },
+  "devDependencies": {
+    "lite-server": "^2.6.1"
+  }
+}
+
+

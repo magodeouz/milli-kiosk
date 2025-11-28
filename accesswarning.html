@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+<html class="light" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title data-i18n="access.pageTitle">Giriş Uyarısı - Kütüphane Sistemi</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style type="text/tailwindcss">
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }
+        body {
+            min-height: 100vh;
+            background: linear-gradient(125deg, #f4f6fb 0%, #ffffff 60%, #f0f4ff 100%);
+            padding: clamp(16px, 4vw, 48px);
+            display: flex;
+            justify-content: center;
+            font-family: "Lexend", sans-serif;
+        }
+        .page-container {
+            width: min(100%, 880px);
+            background: rgba(255,255,255,0.95);
+            border-radius: 32px;
+            box-shadow: 0 20px 60px rgba(15,23,42,0.15);
+            padding: clamp(24px, 4vw, 56px);
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#30bae8",
+            "brand": "#B91C1C",
+              "background-light": "#f6f7f8",
+              "background-dark": "#111d21",
+            },
+            fontFamily: {
+              "display": ["Lexend", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+</head>
+<body class="font-display text-gray-800 dark:text-gray-200">
+<div class="page-container">
+<header class="flex items-center gap-4 rounded-full border border-gray-200 dark:border-gray-700 bg-white/90 dark:bg-background-dark/80 px-5 py-3 shadow-sm">
+<img src="./main-logo-affix.png" alt="Millî Kütüphane Logosu" class="h-10 w-auto"/>
+<div class="hidden sm:flex flex-col leading-tight">
+<span class="text-sm font-bold text-brand" data-i18n="common.logoTitle">Millî Kütüphane</span>
+<span class="text-[11px] uppercase tracking-[0.35em] text-gray-500 dark:text-gray-300" data-i18n="common.logoSubtitle">Kütüphaneler ve Yayınlar GM</span>
+</div>
+</header>
+<!-- Modal/Alert Card -->
+<div class="w-full max-w-md mx-auto rounded-xl bg-white dark:bg-gray-800/50 shadow-lg border border-gray-200 dark:border-gray-700">
+<div class="relative flex flex-col p-8">
+<!-- Close Icon -->
+<button data-route="./home.html" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+<!-- Icon and Content Wrapper -->
+<div class="flex flex-col items-center text-center gap-6">
+<!-- Warning Icon -->
+<div class="flex h-16 w-16 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/50 text-red-500 dark:text-red-400">
+<span class="material-symbols-outlined text-4xl" data-icon="warning">warning</span>
+</div>
+<!-- Text Content -->
+<div class="flex flex-col items-center gap-2">
+<h1 class="text-xl font-bold text-gray-900 dark:text-white" data-i18n="access.title">Giriş Yapılamadı</h1>
+<p class="text-sm text-gray-600 dark:text-gray-300" data-i18n="access.message">
+                            Gecikmiş kitap iadeniz bulunduğu için hesabınıza giriş yapamazsınız. Lütfen en yakın kütüphane şubesine başvurunuz.
+                        </p>
+</div>
+<!-- Action Buttons -->
+<div class="flex w-full flex-col items-stretch gap-3 pt-4">
+<button data-route="./help.html" class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white text-base font-bold leading-normal tracking-[0.015em] w-full hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+<span class="truncate" data-i18n="access.helpButton">Yardım Al</span>
+</button>
+<button data-route="./home.html" class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] w-full hover:bg-opacity-90 transition-colors">
+<span class="truncate" data-i18n="access.homeButton">Ana Ekrana Dön</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body><script src="./i18n.js"></script><script src="./router.js"></script></html>
