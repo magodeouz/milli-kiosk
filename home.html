@@ -40,6 +40,9 @@
       z-index: 50;
       backdrop-filter: blur(6px);
     }
+    .dark .modal-overlay {
+      background: rgba(0, 0, 0, 0.75);
+    }
     .modal-overlay.active {
       display: flex;
     }
@@ -53,11 +56,18 @@
       position: relative;
       border: 1px solid rgba(148, 163, 184, 0.3);
     }
+    .dark .modal-content {
+      background: #1e293b;
+      border-color: rgba(148, 163, 184, 0.5);
+    }
     .modal-body {
       padding: 24px;
       max-height: calc(90vh - 60px);
       overflow-y: auto;
       background: rgba(255, 255, 255, 0.95);
+    }
+    .dark .modal-body {
+      background: rgba(30, 41, 59, 0.95);
     }
     .modal-close {
       position: absolute;
@@ -78,6 +88,13 @@
     .modal-close:hover {
       background: #e2e8f0;
     }
+    .dark .modal-close {
+      background: rgba(30, 41, 59, 0.92);
+      color: #f8fafc;
+    }
+    .dark .modal-close:hover {
+      background: rgba(51, 65, 85, 0.92);
+    }
     .material-symbols-outlined {
       font-variation-settings:
         'FILL' 0,
@@ -93,6 +110,9 @@
       justify-content: center;
       padding: clamp(16px, 4vw, 48px);
     }
+    .dark body {
+      background: linear-gradient(130deg, #0f172a 0%, #1e293b 50%, #1e293b 100%);
+    }
     .page-container {
       width: min(100%, 1024px);
       background-color: rgba(255, 255, 255, 0.92);
@@ -103,6 +123,9 @@
       flex-direction: column;
       gap: 32px;
     }
+    .dark .page-container {
+      background-color: rgba(30, 41, 59, 0.92);
+    }
     .content-panel {
       border-radius: 28px;
       padding: clamp(20px, 3vw, 36px);
@@ -112,6 +135,10 @@
       display: flex;
       flex-direction: column;
       gap: 24px;
+    }
+    .dark .content-panel {
+      background: #1e293b;
+      border-color: rgba(148,163,184,0.5);
     }
     .info-grid {
       display: grid;
@@ -139,106 +166,210 @@
       font-weight: 700;
       color: #0f172a;
     }
+    .barcode-hint {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: rgba(48, 186, 232, 0.95);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(48, 186, 232, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 40;
+      animation: barcode-hint-animation 2s ease-in-out infinite;
+    }
+    .barcode-hint .material-symbols-outlined {
+      animation: arrow-bounce 1.5s ease-in-out infinite;
+    }
+    @keyframes barcode-hint-animation {
+      0%, 100% {
+        transform: scale(1) translateX(0);
+        box-shadow: 0 4px 12px rgba(48, 186, 232, 0.3);
+      }
+      50% {
+        transform: scale(1.05) translateX(-5px);
+        box-shadow: 0 6px 20px rgba(48, 186, 232, 0.6);
+      }
+    }
+    @keyframes arrow-bounce {
+      0%, 100% {
+        transform: translateX(0);
+      }
+      50% {
+        transform: translateX(-8px);
+      }
+    }
+    .card-scan-hint {
+      position: absolute;
+      bottom: 16px;
+      right: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #30bae8;
+    }
+    .card-scan-hint .material-symbols-outlined {
+      font-size: 40px;
+      animation: card-arrow-animation 2s ease-in-out infinite;
+    }
+    @keyframes card-arrow-animation {
+      0%, 100% {
+        opacity: 0.6;
+        transform: translate(0, 0) scale(1);
+      }
+      50% {
+        opacity: 1;
+        transform: translate(6px, 6px) scale(1.2);
+      }
+    }
+    @keyframes shimmer {
+      0% {
+        transform: translateX(-100%);
+      }
+      100% {
+        transform: translateX(100%);
+      }
+    }
+    .shimmer-effect {
+      animation: shimmer 2s infinite;
+    }
+    @keyframes card-fade {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.3;
+      }
+    }
+    .card-fade-animation {
+      animation: card-fade 3s ease-in-out infinite;
+    }
     @media (max-width: 640px) {
       .page-container {
         border-radius: 20px;
         padding: 24px 20px 32px;
       }
+      .barcode-hint {
+        bottom: 16px;
+        right: 16px;
+        font-size: 12px;
+        padding: 10px 16px;
+      }
     }
   </style>
 </head>
-<body class="font-display text-slate-800">
+<body class="font-display text-slate-800 dark:text-gray-200">
   <div class="page-container">
-    <header class="flex flex-wrap items-center gap-4 rounded-full border border-slate-200 bg-white/90 px-5 py-3 shadow-sm">
-      <img src="./main-logo-affix.png" alt="Millî Kütüphane Logosu" class="h-10 w-auto" />
-      <div class="hidden sm:flex flex-col leading-tight">
-        <span class="text-sm font-bold text-brand" data-i18n="common.logoTitle">Millî Kütüphane</span>
-        <span class="text-[11px] uppercase tracking-[0.35em] text-slate-500" data-i18n="common.logoSubtitle">Kütüphaneler ve Yayınlar GM</span>
+    <header class="flex flex-wrap items-center justify-between gap-4 rounded-full border border-slate-200 dark:border-gray-700 bg-white/90 dark:bg-background-dark/80 px-5 py-3 shadow-sm relative">
+      <div class="flex items-center gap-4">
+        <img src="./main-logo-affix.png" alt="Millî Kütüphane Logosu" class="h-10 w-auto" />
+        <div class="hidden sm:flex flex-col leading-tight">
+          <span class="text-sm font-bold text-brand" data-i18n="common.logoTitle">Millî Kütüphane</span>
+          <span class="text-[11px] uppercase tracking-[0.35em] text-slate-500 dark:text-gray-300" data-i18n="common.logoSubtitle">Kütüphaneler ve Yayınlar GM</span>
+        </div>
+      </div>
+      <!-- Test Butonu - Kimlik Kartı Okutuldu -->
+      <div class="relative">
+        <button id="card-scanned-toggle" type="button" class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/20 border border-primary/50 text-primary hover:bg-primary/30 transition-colors" title="Test: Kimlik Kartı Okutuldu" aria-label="Test: Kimlik Kartı Okutuldu">
+          <span class="material-symbols-outlined text-sm" data-icon="credit_card">credit_card</span>
+        </button>
+        <!-- Kimlik Kartı Okutuldu Dropdown (Test için) -->
+        <div id="card-scanned-dropdown" class="absolute top-full right-0 mt-2 w-64 rounded-xl border-2 border-primary bg-white dark:bg-gray-800 shadow-xl z-[100] hidden" role="menu" aria-label="Kullanıcı tipi seçimi">
+      <div class="p-2">
+        <button data-user-type="new" class="w-full text-left px-4 py-3 rounded-lg hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors flex items-center gap-3 text-slate-900 dark:text-white" role="menuitem">
+          <span class="material-symbols-outlined text-primary" data-icon="person_add">person_add</span>
+          <span class="font-medium" data-i18n="home.cardScanned.newUser">1. Yeni Gelen</span>
+        </button>
+        <button data-user-type="break" class="w-full text-left px-4 py-3 rounded-lg hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors flex items-center gap-3 text-slate-900 dark:text-white" role="menuitem">
+          <span class="material-symbols-outlined text-primary" data-icon="timer">timer</span>
+          <span class="font-medium" data-i18n="home.cardScanned.breakUser">2. Moladaki Kullanıcı</span>
+        </button>
+        <button data-user-type="inside" class="w-full text-left px-4 py-3 rounded-lg hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors flex items-center gap-3 text-slate-900 dark:text-white" role="menuitem">
+          <span class="material-symbols-outlined text-primary" data-icon="person">person</span>
+          <span class="font-medium" data-i18n="home.cardScanned.insideUser">3. İçerideki Kullanıcı</span>
+        </button>
+      </div>
+        </div>
       </div>
     </header>
 
-      <main class="content-panel">
-        <div class="flex items-start justify-between gap-4">
-          <div>
-            <div class="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/15 text-primary">
-              <span class="material-symbols-outlined !text-4xl">local_library</span>
-            </div>
-            <h1 class="text-3xl font-bold tracking-tight text-slate-900" data-i18n="home.heroTitle">Millî Kütüphaneye Hoş Geldiniz</h1>
-            <p class="mt-2 text-slate-600" data-i18n="home.heroDescription">Lütfen giriş yapmak için bir yöntem seçin.</p>
-          </div>
-          <div class="flex gap-2">
-            <button id="open-settings-modal" type="button" class="flex h-10 w-10 items-center justify-center rounded-full bg-white border border-slate-200 shadow-sm transition-colors hover:bg-slate-50">
-              <span class="material-symbols-outlined text-slate-600">language</span>
-        </button>
-            <button id="open-settings-modal-accessibility" type="button" class="flex h-10 w-10 items-center justify-center rounded-full bg-white border border-slate-200 shadow-sm transition-colors hover:bg-slate-50">
-              <span class="material-symbols-outlined text-slate-600">accessibility_new</span>
-        </button>
-      </div>
+      <main class="content-panel relative">
+        <div class="mb-6">
+          <h1 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white" data-i18n="home.heroTitle">Millî Kütüphaneye Hoş Geldiniz</h1>
+          <p class="mt-2 text-slate-600 dark:text-gray-300" data-i18n="home.heroDescription">Lütfen giriş yapmak için bir yöntem seçin.</p>
     </div>
 
-      <div class="flex flex-col gap-3">
-          <button data-route="./auth.html?method=tc" class="flex w-full items-center justify-between rounded-xl h-14 px-5 bg-slate-50 text-slate-800 text-base font-medium transition-all hover:bg-slate-100 border border-slate-200">
-            <span class="flex items-center gap-3">
-              <span class="material-symbols-outlined text-primary">badge</span>
-              <span data-i18n="home.login.tc">T.C. Kimlik ile Giriş</span>
-            </span>
-            <span class="material-symbols-outlined text-primary">chevron_right</span>
-          </button>
-          <button data-route="./auth.html?method=ykn" class="flex w-full items-center justify-between rounded-xl h-14 px-5 bg-slate-50 text-slate-800 text-base font-medium transition-all hover:bg-slate-100 border border-slate-200">
-            <span class="flex items-center gap-3">
-              <span class="material-symbols-outlined text-primary">passport</span>
-              <span data-i18n="home.login.ykn">YKN/Pasaport ile Giriş</span>
-            </span>
-            <span class="material-symbols-outlined text-primary">chevron_right</span>
-        </button>
-          <button data-route="./auth.html?method=digital" class="flex w-full items-center justify-between rounded-xl h-14 px-5 bg-slate-50 text-slate-800 text-base font-medium transition-all hover:bg-slate-100 border border-slate-200">
-            <span class="flex items-center gap-3">
-              <span class="material-symbols-outlined text-primary">qr_code_scanner</span>
-              <span data-i18n="home.login.digital">Dijital Kimlik ile Giriş</span>
-            </span>
-            <span class="material-symbols-outlined text-primary">chevron_right</span>
-        </button>
-          <button data-route="./auth.html?method=edevlet" class="flex w-full items-center justify-between rounded-xl h-14 px-5 bg-slate-50 text-slate-800 text-base font-medium transition-all hover:bg-slate-100 border border-slate-200">
-            <span class="flex items-center gap-3">
-              <span class="material-symbols-outlined text-primary">account_balance</span>
-              <span data-i18n="home.login.edevlet">e-Devlet ile Giriş</span>
-            </span>
-            <span class="material-symbols-outlined text-primary">chevron_right</span>
-        </button>
+        <!-- Kart Okutma Alanı -->
+        <div class="w-full rounded-xl border-2 border-dashed border-primary/50 dark:border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10 dark:from-primary/10 dark:to-primary/20 p-12 text-center transition-all hover:border-primary dark:hover:border-primary/50 hover:shadow-lg mb-6 relative">
+          <div class="flex flex-col items-center gap-6">
+            <!-- Kimlik Kartı Görseli -->
+            <div class="relative">
+              <img src="./cipli-kimlik-karti-e-imza-removebg-preview.png" alt="Kimlik Kartı" class="w-auto h-48 md:h-56 shadow-xl rounded-lg card-fade-animation" />
+              <!-- Parlama Efekti -->
+              <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent shimmer-effect rounded-lg pointer-events-none"></div>
+            </div>
+            <div class="flex flex-col items-center gap-2">
+              <p class="text-xl font-bold text-slate-900 dark:text-white" data-i18n="home.cardScan.title">Kimlik Kartınızı Okutun</p>
+              <p class="text-sm text-slate-600 dark:text-gray-300" data-i18n="home.cardScan.description">Kimlik kartınızı barkod okuyucuya gösterin</p>
+            </div>
+          </div>
+          <!-- Sağ Alt Köşe Animasyonu -->
+          <div class="card-scan-hint">
+            <span class="material-symbols-outlined">south_east</span>
+          </div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div id="loading-overlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center hidden" role="dialog" aria-label="Yükleniyor" aria-live="polite">
+          <div class="bg-white dark:bg-gray-800 rounded-xl p-8 flex flex-col items-center gap-4">
+            <div class="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent" aria-hidden="true"></div>
+            <p class="text-lg font-medium text-slate-900 dark:text-white" data-i18n="home.loading">Yönlendiriliyor...</p>
+          </div>
       </div>
 
-        <div class="flex flex-wrap items-center gap-4 text-sm justify-between pt-4 border-t border-slate-200">
-          <div class="flex gap-4">
-            <a class="text-slate-600 hover:text-primary transition-colors" href="./foreign-register.html" data-i18n="home.links.foreign">Yeni Yabancı Üyelik Kaydı</a>
-            <a class="text-slate-600 hover:text-primary transition-colors" href="./help.html" data-i18n="home.links.help">Yardım &amp; Destek</a>
-          </div>
-          <span class="text-xs uppercase tracking-[0.4em] text-slate-400" data-i18n="home.links.kiosk">Kiosk 24/7</span>
+        <!-- e-Devlet ile Giriş (Öne Çıkan) -->
+        <button data-route="https://giris.turkiye.gov.tr/Giris/gir" class="flex w-full items-center justify-center gap-4 rounded-xl h-16 px-6 bg-slate-50 dark:bg-gray-700 text-slate-800 dark:text-white text-lg font-bold transition-all hover:bg-slate-100 dark:hover:bg-gray-600 hover:shadow-lg hover:scale-[1.02] border-2 border-slate-200 dark:border-gray-600 mb-3" aria-label="e-Devlet ile Giriş">
+          <!-- e-Devlet Logosu -->
+          <img src="./e-devlet-logo.png" alt="e-Devlet Logosu" class="h-8 w-auto" />
+          <span data-i18n="home.login.edevlet">e-Devlet ile Giriş</span>
+        </button>
+
+        <!-- Hesap Bilgileri ile Giriş -->
+        <button data-route="./auth.html?method=account" class="flex w-full items-center justify-center gap-4 rounded-xl h-16 px-6 bg-slate-50 dark:bg-gray-700 text-slate-800 dark:text-white text-lg font-bold transition-all hover:bg-slate-100 dark:hover:bg-gray-600 hover:shadow-lg hover:scale-[1.02] border-2 border-slate-200 dark:border-gray-600 mb-4" aria-label="Hesap Bilgileri ile Giriş">
+          <span class="material-symbols-outlined text-2xl text-primary" data-icon="person">person</span>
+          <span data-i18n="home.login.account">Hesap Bilgileri ile Giriş</span>
+        </button>
+
+        <div class="pt-3 border-t border-slate-200 dark:border-gray-700">
+          <!-- Yardım ve Destek Butonu -->
+          <a href="./help.html" class="flex w-full items-center justify-center gap-3 rounded-xl h-14 px-6 bg-slate-50 dark:bg-gray-700 text-slate-800 dark:text-white text-base font-bold transition-all hover:bg-slate-100 dark:hover:bg-gray-600 hover:shadow-lg hover:scale-[1.02] border-2 border-slate-200 dark:border-gray-600 mb-3" data-i18n="home.links.help" aria-label="Yardım ve Destek">
+            <span class="material-symbols-outlined text-xl text-primary">help</span>
+            <span>Yardım &amp; Destek</span>
+          </a>
+      </div>
+
+        <!-- Erişilebilirlik ve Dil Butonları -->
+        <div class="flex gap-3 pt-4">
+          <button id="open-settings-modal" type="button" class="flex flex-1 items-center justify-center gap-3 rounded-xl h-14 px-6 bg-slate-50 dark:bg-gray-700 text-slate-800 dark:text-white text-base font-bold transition-all hover:bg-slate-100 dark:hover:bg-gray-600 hover:shadow-lg hover:scale-[1.02] border-2 border-slate-200 dark:border-gray-600" aria-label="Dil Seçimi">
+            <span class="material-symbols-outlined text-xl text-primary" data-icon="language">language</span>
+            <span data-i18n="settings.language.title">Dil</span>
+          </button>
+          <button id="open-settings-modal-accessibility" type="button" class="flex flex-1 items-center justify-center gap-3 rounded-xl h-14 px-6 bg-slate-50 dark:bg-gray-700 text-slate-800 dark:text-white text-base font-bold transition-all hover:bg-slate-100 dark:hover:bg-gray-600 hover:shadow-lg hover:scale-[1.02] border-2 border-slate-200 dark:border-gray-600" aria-label="Erişilebilirlik Ayarları">
+            <span class="material-symbols-outlined text-xl text-primary" data-icon="accessibility_new">accessibility_new</span>
+            <span data-i18n="settings.accessibility.title">Erişilebilirlik</span>
+          </button>
         </div>
       </main>
-
-      <div class="info-grid">
-        <div class="info-card">
-          <p class="text-xs uppercase tracking-[0.4em] text-slate-400" data-i18n="home.stats.activeSessionsLabel">Aktif Oturum</p>
-          <p class="info-value">1.248</p>
-          <p class="text-sm text-slate-500" data-i18n="home.stats.activeSessionsDesc">Bugün sisteme giriş yapan toplam kullanıcı.</p>
-        </div>
-        <div class="info-card">
-          <p class="text-xs uppercase tracking-[0.4em] text-slate-400" data-i18n="home.stats.occupancyLabel">Salon Doluluğu</p>
-          <p class="info-value">%72</p>
-          <p class="text-sm text-slate-500" data-i18n="home.stats.occupancyDesc">Ana Çalışma Salonu şu anda orta yoğunlukta.</p>
-        </div>
-        <div class="info-card">
-          <p class="text-xs uppercase tracking-[0.4em] text-slate-400" data-i18n="home.stats.hoursLabel">Çalışma Saatleri</p>
-          <p class="info-value">24/7</p>
-          <p class="text-sm text-slate-500" data-i18n="home.stats.hoursDesc">Kiosk destek hattı kesintisiz hizmet verir.</p>
-          <span class="material-symbols-outlined text-primary !text-4xl">local_library</span>
-        </div>
-      </div>
     </div>
   <div id="settings-modal" class="modal-overlay" aria-hidden="true">
     <div class="modal-content" role="dialog" aria-modal="true" aria-label="Ayarlar">
       <button type="button" id="settings-modal-close" class="modal-close" aria-label="Kapat">
-        <span class="material-symbols-outlined">close</span>
+        <span class="material-symbols-outlined" data-icon="close">close</span>
       </button>
       <div class="modal-body">
         <h2 class="text-[#111618] dark:text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 text-left pb-3 pt-5" data-i18n="settings.language.title">Dil Seçimi</h2>
@@ -359,6 +490,61 @@
       if (event.key === "Escape" && modal.classList.contains("active")) {
         closeModal();
       }
+    });
+  })();
+
+  // Card Scan Dropdown Handler
+  (function () {
+    const toggleBtn = document.getElementById("card-scanned-toggle");
+    const dropdown = document.getElementById("card-scanned-dropdown");
+    const loadingOverlay = document.getElementById("loading-overlay");
+
+    if (!toggleBtn || !dropdown || !loadingOverlay) return;
+
+    // Open dropdown when button is clicked
+    toggleBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      dropdown.classList.toggle("hidden");
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener("click", (e) => {
+      if (!dropdown.contains(e.target) && !toggleBtn.contains(e.target)) {
+        dropdown.classList.add("hidden");
+      }
+    });
+
+    // Handle menu item selection
+    dropdown.querySelectorAll("button[data-user-type]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const userType = btn.getAttribute("data-user-type");
+        
+        // Show loading
+        loadingOverlay.classList.remove("hidden");
+        dropdown.classList.add("hidden");
+
+        // Navigate after a short delay
+        setTimeout(() => {
+          let targetPage = "";
+          switch (userType) {
+            case "new":
+              targetPage = "./reservation.html";
+              break;
+            case "break":
+              targetPage = "./break.html";
+              break;
+            case "inside":
+              targetPage = "./my-reservations.html";
+              break;
+          }
+
+          if (targetPage) {
+            window.location.href = targetPage;
+          } else {
+            loadingOverlay.classList.add("hidden");
+          }
+        }, 1500); // 1.5 second delay for loading effect
+      });
     });
   })();
 </script>

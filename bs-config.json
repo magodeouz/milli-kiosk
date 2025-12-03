@@ -1,0 +1,9 @@
+{
+  "port": 8080,
+  "server": {
+    "baseDir": ".",
+    "index": "index.html"
+  },
+  "files": ["**/*.html", "**/*.css", "**/*.js", "**/*.png", "**/*.jpg", "**/*.svg"]
+}
+

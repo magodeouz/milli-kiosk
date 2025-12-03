@@ -81,15 +81,140 @@
 <div class="layout-content-container flex flex-col w-full max-w-[960px] flex-1">
 <!-- Page Heading -->
 <div class="flex flex-wrap justify-between gap-3 p-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-4xl text-primary">help</span>
 <h1 class="text-[#111618] dark:text-white text-4xl font-black leading-tight tracking-[-0.033em] min-w-72">Yardım ve Destek</h1>
 </div>
+</div>
+
+<!-- Kullanım Kılavuzu Butonu -->
+<div class="p-4 mb-6">
+  <button id="toggle-guide" class="flex w-full items-center justify-center gap-3 rounded-xl h-14 px-6 bg-primary text-white text-base font-bold transition-all hover:bg-primary/90 hover:shadow-lg hover:scale-[1.02]">
+    <span class="material-symbols-outlined text-xl">menu_book</span>
+    <span>Kullanım Kılavuzunu Görüntüle</span>
+    <span id="guide-arrow" class="material-symbols-outlined text-xl">expand_more</span>
+  </button>
+</div>
+
+<!-- Kullanım Kılavuzu -->
+<div id="usage-guide" class="p-4 bg-white dark:bg-background-dark/50 rounded-xl shadow-sm mb-6 hidden">
+  <div class="flex items-center gap-3 px-4 pb-4 pt-2">
+    <span class="material-symbols-outlined text-2xl text-primary">menu_book</span>
+    <h2 class="text-[#111618] dark:text-white text-[22px] font-bold leading-tight tracking-[-0.015em]">Kullanım Kılavuzu</h2>
+  </div>
+  
+  <div class="flex flex-col gap-4 px-4 pb-4">
+    <!-- Adım 1 -->
+    <div class="flex gap-4 items-start">
+      <div class="flex-shrink-0 w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm">1</div>
+      <div class="flex-1">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="material-symbols-outlined text-lg text-primary">login</span>
+          <h3 class="text-[#111618] dark:text-white text-base font-semibold">Giriş Yapma</h3>
+        </div>
+        <p class="text-[#637f88] dark:text-gray-400 text-sm leading-relaxed">
+          Ana sayfada kimlik kartınızı barkod okuyucuya okutun veya <strong>e-Devlet ile Giriş</strong> veya <strong>Hesap Bilgileri ile Giriş</strong> seçeneklerinden birini kullanarak sisteme giriş yapın.
+        </p>
+      </div>
+    </div>
+
+    <!-- Adım 2 -->
+    <div class="flex gap-4 items-start">
+      <div class="flex-shrink-0 w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm">2</div>
+      <div class="flex-1">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="material-symbols-outlined text-lg text-primary">event_available</span>
+          <h3 class="text-[#111618] dark:text-white text-base font-semibold">Rezervasyon Oluşturma</h3>
+        </div>
+        <p class="text-[#637f88] dark:text-gray-400 text-sm leading-relaxed">
+          Menüden <strong>Rezervasyonu Oluştur</strong> seçeneğine tıklayın. Tarih, saat ve salon seçimi yaparak rezervasyonunuzu oluşturun. Sistem size uygun koltuğu otomatik olarak atayacaktır.
+        </p>
+      </div>
+    </div>
+
+    <!-- Adım 3 -->
+    <div class="flex gap-4 items-start">
+      <div class="flex-shrink-0 w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm">3</div>
+      <div class="flex-1">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="material-symbols-outlined text-lg text-primary">bookmark</span>
+          <h3 class="text-[#111618] dark:text-white text-base font-semibold">Rezervasyonlarımı Görüntüleme</h3>
+        </div>
+        <p class="text-[#637f88] dark:text-gray-400 text-sm leading-relaxed">
+          <strong>Rezervasyonlarım</strong> menüsünden aktif ve geçmiş rezervasyonlarınızı görüntüleyebilir, detaylarını inceleyebilirsiniz.
+        </p>
+      </div>
+    </div>
+
+    <!-- Adım 4 -->
+    <div class="flex gap-4 items-start">
+      <div class="flex-shrink-0 w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm">4</div>
+      <div class="flex-1">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="material-symbols-outlined text-lg text-primary">swap_horiz</span>
+          <h3 class="text-[#111618] dark:text-white text-base font-semibold">Koltuk Değişimi</h3>
+        </div>
+        <p class="text-[#637f88] dark:text-gray-400 text-sm leading-relaxed">
+          Aktif rezervasyonunuzda <strong>Koltuk Değişimi</strong> butonuna tıklayarak koltuğunuzu değiştirebilirsiniz. Kalan değişim hakkınız rezervasyon kartında gösterilir.
+        </p>
+      </div>
+    </div>
+
+    <!-- Adım 5 -->
+    <div class="flex gap-4 items-start">
+      <div class="flex-shrink-0 w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm">5</div>
+      <div class="flex-1">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="material-symbols-outlined text-lg text-primary">timer</span>
+          <h3 class="text-[#111618] dark:text-white text-base font-semibold">Mola Takibi</h3>
+        </div>
+        <p class="text-[#637f88] dark:text-gray-400 text-sm leading-relaxed">
+          <strong>Mola Takibi</strong> menüsünden mola sürenizi takip edebilir ve mola süreniz dolduğunda rezervasyonunuza geri dönebilirsiniz.
+        </p>
+      </div>
+    </div>
+
+    <!-- Adım 6 -->
+    <div class="flex gap-4 items-start">
+      <div class="flex-shrink-0 w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm">6</div>
+      <div class="flex-1">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="material-symbols-outlined text-lg text-primary">settings</span>
+          <h3 class="text-[#111618] dark:text-white text-base font-semibold">Dil ve Erişilebilirlik</h3>
+        </div>
+        <p class="text-[#637f88] dark:text-gray-400 text-sm leading-relaxed">
+          Ana sayfada <strong>Dil</strong> ve <strong>Erişilebilirlik</strong> butonları ile dil seçiminizi değiştirebilir ve erişilebilirlik ayarlarınızı yapabilirsiniz.
+        </p>
+      </div>
+    </div>
+
+    <!-- Adım 7 -->
+    <div class="flex gap-4 items-start">
+      <div class="flex-shrink-0 w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm">7</div>
+      <div class="flex-1">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="material-symbols-outlined text-lg text-primary">autorenew</span>
+          <h3 class="text-[#111618] dark:text-white text-base font-semibold">Otomatik Yönlendirme</h3>
+        </div>
+        <p class="text-[#637f88] dark:text-gray-400 text-sm leading-relaxed">
+          Sistem, 30 saniye boyunca etkileşim olmadığında otomatik olarak ana sayfaya yönlendirir. Sağ üstteki geri sayım göstergesinden kalan süreyi takip edebilirsiniz.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="p-4 bg-white dark:bg-background-dark/50 rounded-xl shadow-sm">
 <!-- Title: Talep Türü -->
-<h2 class="text-[#111618] dark:text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 text-left pb-3 pt-5">Talep Türü</h2>
+<div class="flex items-center gap-3 px-4 pb-3 pt-5">
+  <span class="material-symbols-outlined text-2xl text-primary">support_agent</span>
+  <h2 class="text-[#111618] dark:text-white text-[22px] font-bold leading-tight tracking-[-0.015em]">Talep Türü</h2>
+</div>
 <!-- Radio List -->
 <div class="flex flex-col gap-3 p-4" style="--radio-dot-svg: url('data:image/svg+xml,%3csvg viewBox=%270 0 16 16%27 fill=%27rgb(48, 186, 232)%27 xmlns=%27http://www.w3.org/2000/svg%27%3e%3ccircle cx=%278%27 cy=%278%27 r=%273%27/%3e%3c/svg%3e');">
 <label class="flex items-center gap-4 rounded-lg border border-solid border-[#dce3e5] dark:border-gray-700 p-[15px] cursor-pointer hover:border-primary/50 dark:hover:border-primary/50 transition-colors">
 <input checked="" class="h-5 w-5 border-2 border-[#dce3e5] dark:border-gray-600 bg-transparent text-transparent checked:border-primary dark:checked:border-primary checked:bg-[image:--radio-dot-svg] focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 dark:focus:ring-offset-background-dark/50 dark:bg-background-dark/50" name="request-type" type="radio"/>
+<span class="material-symbols-outlined text-2xl text-primary">computer</span>
 <div class="flex grow flex-col">
 <p class="text-[#111618] dark:text-white text-sm font-medium leading-normal">Teknik Sorun</p>
 <p class="text-[#637f88] dark:text-gray-400 text-sm font-normal leading-normal">Bilgisayar, yazıcı vb. sorunlar</p>
@@ -97,6 +222,7 @@
 </label>
 <label class="flex items-center gap-4 rounded-lg border border-solid border-[#dce3e5] dark:border-gray-700 p-[15px] cursor-pointer hover:border-primary/50 dark:hover:border-primary/50 transition-colors">
 <input class="h-5 w-5 border-2 border-[#dce3e5] dark:border-gray-600 bg-transparent text-transparent checked:border-primary dark:checked:border-primary checked:bg-[image:--radio-dot-svg] focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 dark:focus:ring-offset-background-dark/50 dark:bg-background-dark/50" name="request-type" type="radio"/>
+<span class="material-symbols-outlined text-2xl text-primary">account_circle</span>
 <div class="flex grow flex-col">
 <p class="text-[#111618] dark:text-white text-sm font-medium leading-normal">Üyelik Sorunu</p>
 <p class="text-[#637f88] dark:text-gray-400 text-sm font-normal leading-normal">Giriş, rezervasyon vb. sorunlar</p>
@@ -104,6 +230,7 @@
 </label>
 <label class="flex items-center gap-4 rounded-lg border border-solid border-[#dce3e5] dark:border-gray-700 p-[15px] cursor-pointer hover:border-primary/50 dark:hover:border-primary/50 transition-colors">
 <input class="h-5 w-5 border-2 border-[#dce3e5] dark:border-gray-600 bg-transparent text-transparent checked:border-primary dark:checked:border-primary checked:bg-[image:--radio-dot-svg] focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 dark:focus:ring-offset-background-dark/50 dark:bg-background-dark/50" name="request-type" type="radio"/>
+<span class="material-symbols-outlined text-2xl text-primary">backpack</span>
 <div class="flex grow flex-col">
 <p class="text-[#111618] dark:text-white text-sm font-medium leading-normal">Kayıp Eşya</p>
 <p class="text-[#637f88] dark:text-gray-400 text-sm font-normal leading-normal">Kütüphanede unuttuğunuz eşyalar</p>
@@ -111,6 +238,7 @@
 </label>
 <label class="flex items-center gap-4 rounded-lg border border-solid border-[#dce3e5] dark:border-gray-700 p-[15px] cursor-pointer hover:border-primary/50 dark:hover:border-primary/50 transition-colors">
 <input class="h-5 w-5 border-2 border-[#dce3e5] dark:border-gray-600 bg-transparent text-transparent checked:border-primary dark:checked:border-primary checked:bg-[image:--radio-dot-svg] focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 dark:focus:ring-offset-background-dark/50 dark:bg-background-dark/50" name="request-type" type="radio"/>
+<span class="material-symbols-outlined text-2xl text-primary">person_search</span>
 <div class="flex grow flex-col">
 <p class="text-[#111618] dark:text-white text-sm font-medium leading-normal">Görevli Çağır</p>
 <p class="text-[#637f88] dark:text-gray-400 text-sm font-normal leading-normal">Acil yardım veya soru için</p>
@@ -120,17 +248,22 @@
 <!-- Text Field -->
 <div class="flex w-full flex-wrap items-end gap-4 px-4 py-3">
 <label class="flex flex-col min-w-40 flex-1">
-<p class="text-[#111618] dark:text-white text-base font-medium leading-normal pb-2">Açıklama</p>
+<div class="flex items-center gap-2 pb-2">
+<span class="material-symbols-outlined text-lg text-primary">description</span>
+<p class="text-[#111618] dark:text-white text-base font-medium leading-normal">Açıklama</p>
+</div>
 <textarea class="form-input flex w-full min-w-0 flex-1 resize-y overflow-hidden rounded-lg text-[#111618] dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-[#dce3e5] dark:border-gray-700 bg-white dark:bg-background-dark/50 focus:border-primary/50 dark:focus:border-primary/50 min-h-36 placeholder:text-[#637f88] dark:placeholder:text-gray-500 p-[15px] text-base font-normal leading-normal" placeholder="Lütfen talebinizi kısaca açıklayınız."></textarea>
 </label>
 </div>
 <!-- Button Group -->
 <div class="flex justify-stretch mt-4">
 <div class="flex flex-1 flex-col sm:flex-row-reverse gap-3 flex-wrap px-4 py-3">
-<button data-route="./home.html" class="flex flex-1 sm:flex-none min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-background-dark/50 transition-colors">
+<button data-route="./home.html" class="flex flex-1 sm:flex-none min-w-[84px] cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-lg h-12 px-5 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-background-dark/50 transition-colors">
+<span class="material-symbols-outlined text-lg">send</span>
 <span class="truncate">Gönder</span>
 </button>
-<button data-route="./home.html" class="flex flex-1 sm:flex-none min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-[#f0f3f4] dark:bg-gray-700 text-[#111618] dark:text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-gray-200 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 dark:focus:ring-offset-background-dark/50 transition-colors">
+<button data-route="./home.html" class="flex flex-1 sm:flex-none min-w-[84px] cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-lg h-12 px-5 bg-[#f0f3f4] dark:bg-gray-700 text-[#111618] dark:text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-gray-200 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 dark:focus:ring-offset-background-dark/50 transition-colors">
+<span class="material-symbols-outlined text-lg">arrow_back</span>
 <span class="truncate">Geri Dön</span>
 </button>
 </div>
@@ -152,4 +285,28 @@
 </div>
 </div>
 </div>
-</body><script src="./i18n.js"></script><script src="./router.js"></script></html>
+</body><script src="./i18n.js"></script><script src="./router.js"></script><script src="./countdown.js"></script>
+<script>
+  // Kullanım Kılavuzu Toggle
+  (function () {
+    const toggleBtn = document.getElementById("toggle-guide");
+    const guide = document.getElementById("usage-guide");
+    const arrow = document.getElementById("guide-arrow");
+
+    if (!toggleBtn || !guide || !arrow) return;
+
+    toggleBtn.addEventListener("click", () => {
+      guide.classList.toggle("hidden");
+      
+      // Ok yönünü değiştir
+      if (guide.classList.contains("hidden")) {
+        arrow.textContent = "expand_more";
+        toggleBtn.querySelector("span:nth-child(2)").textContent = "Kullanım Kılavuzunu Görüntüle";
+      } else {
+        arrow.textContent = "expand_less";
+        toggleBtn.querySelector("span:nth-child(2)").textContent = "Kullanım Kılavuzunu Gizle";
+      }
+    });
+  })();
+</script>
+</html>
