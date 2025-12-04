@@ -2,24 +2,43 @@
 (function () {
   let isEnabled = false;
   let currentUtterance = null;
+  let listenersAdded = false;
 
   // Check if browser supports speech synthesis
   const speechSupported = 'speechSynthesis' in window;
 
+  // Log for debugging
+  console.log('Screen Reader initialized. Speech supported:', speechSupported);
+
   // Load saved preference
   const loadScreenReader = () => {
     isEnabled = localStorage.getItem("mk-screen-reader") === "true";
+    console.log('Loading screen reader state:', isEnabled);
     if (isEnabled && speechSupported) {
-      enableScreenReader();
+      announceCurrentPage();
+      if (!listenersAdded) {
+        addInteractionListeners();
+        listenersAdded = true;
+      }
     }
   };
 
   // Speak text function
   const speak = (text, interrupt = true) => {
-    if (!isEnabled || !speechSupported) return;
+    console.log('Speak called:', text, 'isEnabled:', isEnabled, 'speechSupported:', speechSupported);
+    
+    if (!speechSupported) {
+      console.error('Speech synthesis not supported in this browser');
+      return;
+    }
+
+    if (!isEnabled) {
+      console.warn('Screen reader is not enabled');
+      return;
+    }
 
     // Cancel previous speech if interrupt is true
-    if (interrupt && currentUtterance) {
+    if (interrupt) {
       window.speechSynthesis.cancel();
     }
 
@@ -29,27 +48,46 @@
     utterance.pitch = 1;
     utterance.volume = 1;
 
+    utterance.onstart = () => console.log('Speech started:', text);
+    utterance.onend = () => console.log('Speech ended');
+    utterance.onerror = (e) => console.error('Speech error:', e);
+
     currentUtterance = utterance;
     window.speechSynthesis.speak(utterance);
   };
 
   // Enable screen reader
   const enableScreenReader = () => {
+    console.log('Enabling screen reader');
     isEnabled = true;
+    localStorage.setItem("mk-screen-reader", "true");
     
-    // Announce page on load
-    announceCurrentPage();
+    // Announce immediately
+    speak("Ekran okuyucu açıldı. Sesli rehberlik aktif.");
+    
+    // Then announce page
+    setTimeout(() => {
+      announceCurrentPage();
+    }, 2000);
     
     // Add event listeners for interactions
-    addInteractionListeners();
+    if (!listenersAdded) {
+      addInteractionListeners();
+      listenersAdded = true;
+    }
   };
 
   // Disable screen reader
   const disableScreenReader = () => {
-    isEnabled = false;
-    if (speechSupported) {
-      window.speechSynthesis.cancel();
-    }
+    console.log('Disabling screen reader');
+    speak("Ekran okuyucu kapatıldı.");
+    setTimeout(() => {
+      isEnabled = false;
+      localStorage.setItem("mk-screen-reader", "false");
+      if (speechSupported) {
+        window.speechSynthesis.cancel();
+      }
+    }, 2000);
   };
 
   // Announce current page
@@ -145,8 +183,18 @@
     });
   };
 
+  // Export functions for external use immediately
+  window.screenReader = {
+    isEnabled: () => isEnabled,
+    enable: enableScreenReader,
+    disable: disableScreenReader,
+    speak: speak
+  };
+
   // Make speak function globally available
   window.screenReaderSpeak = speak;
+
+  console.log('window.screenReader exported:', window.screenReader);
 
   // Initialize on page load
   if (document.readyState === "loading") {
@@ -154,13 +202,5 @@
   } else {
     loadScreenReader();
   }
-
-  // Export functions for external use
-  window.screenReader = {
-    isEnabled: () => isEnabled,
-    enable: enableScreenReader,
-    disable: disableScreenReader,
-    speak: speak
-  };
 })();
 

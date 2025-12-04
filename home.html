@@ -617,11 +617,17 @@
   (function () {
     const toggle = document.getElementById("screen-reader-toggle");
     
-    if (!toggle) return;
+    if (!toggle) {
+      console.error('Screen reader toggle not found');
+      return;
+    }
+
+    console.log('Screen reader toggle initialized');
 
     // Load saved preference
     const loadScreenReader = () => {
       const isScreenReader = localStorage.getItem("mk-screen-reader") === "true";
+      console.log('Loading screen reader toggle state:', isScreenReader);
       if (isScreenReader) {
         toggle.checked = true;
       }
@@ -629,25 +635,26 @@
 
     // Toggle screen reader
     toggle.addEventListener("change", (event) => {
+      console.log('Toggle changed:', event.target.checked);
       if (event.target.checked) {
-        localStorage.setItem("mk-screen-reader", "true");
         if (window.screenReader) {
           window.screenReader.enable();
-          window.screenReader.speak("Ekran okuyucu açıldı. Sesli rehberlik aktif.");
+        } else {
+          console.error('window.screenReader not available');
         }
       } else {
-        localStorage.setItem("mk-screen-reader", "false");
         if (window.screenReader) {
-          window.screenReader.speak("Ekran okuyucu kapatıldı.");
-          setTimeout(() => {
-            window.screenReader.disable();
-          }, 2000);
+          window.screenReader.disable();
+        } else {
+          console.error('window.screenReader not available');
         }
       }
     });
 
-    // Initialize
-    loadScreenReader();
+    // Initialize after a short delay to ensure screen-reader.js is loaded
+    setTimeout(() => {
+      loadScreenReader();
+    }, 100);
   })();
 </script>
 </html>
