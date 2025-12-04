@@ -122,6 +122,9 @@
       case "reservation-success.html":
         announcement = "Rezervasyon başarılı. Rezervasyon bilgileriniz gösterilmektedir.";
         break;
+      case "accesswarning.html":
+        announcement = "Giriş yapılamadı. Gecikmiş kitap iadeniz bulunmaktadır. Lütfen en yakın kütüphane şubesine başvurunuz.";
+        break;
       default:
         announcement = "Sayfa yüklendi.";
     }
