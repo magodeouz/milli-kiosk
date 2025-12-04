@@ -1,0 +1,114 @@
+/* Large Font Mode - 200% font scaling */
+.large-font {
+  font-size: 200% !important;
+}
+
+.large-font body {
+  font-size: 2rem !important;
+  line-height: 1.6 !important;
+}
+
+.large-font h1 {
+  font-size: 4.5rem !important;
+  line-height: 1.2 !important;
+}
+
+.large-font h2 {
+  font-size: 3rem !important;
+  line-height: 1.3 !important;
+}
+
+.large-font h3 {
+  font-size: 2.25rem !important;
+  line-height: 1.3 !important;
+}
+
+.large-font p, .large-font span, .large-font a, 
+.large-font button, .large-font label, .large-font li {
+  font-size: 2rem !important;
+  line-height: 1.6 !important;
+}
+
+.large-font .text-sm, .large-font .text-base {
+  font-size: 1.75rem !important;
+}
+
+.large-font .text-lg {
+  font-size: 2.25rem !important;
+}
+
+.large-font .text-xl {
+  font-size: 2.5rem !important;
+}
+
+.large-font .text-2xl {
+  font-size: 3rem !important;
+}
+
+.large-font .text-3xl {
+  font-size: 4rem !important;
+}
+
+.large-font .text-4xl {
+  font-size: 4.5rem !important;
+}
+
+.large-font input, .large-font textarea, .large-font select {
+  font-size: 2rem !important;
+  padding: 1.5rem !important;
+  min-height: 4rem !important;
+}
+
+.large-font button, .large-font a.flex {
+  min-height: 4rem !important;
+  padding: 1.5rem 2rem !important;
+  font-size: 2rem !important;
+}
+
+.large-font .material-symbols-outlined {
+  font-size: 3rem !important;
+}
+
+.large-font .page-container {
+  max-width: 100% !important;
+  padding: 3rem !important;
+}
+
+.large-font .content-panel {
+  padding: 3rem !important;
+  gap: 3rem !important;
+}
+
+.large-font .modal-content {
+  max-width: 95vw !important;
+  font-size: 2rem !important;
+}
+
+.large-font .modal-body {
+  padding: 3rem !important;
+}
+
+/* Responsive adjustments for large font */
+@media (max-width: 768px) {
+  .large-font body {
+    font-size: 1.5rem !important;
+  }
+  
+  .large-font h1 {
+    font-size: 3rem !important;
+  }
+  
+  .large-font h2 {
+    font-size: 2.5rem !important;
+  }
+  
+  .large-font p, .large-font span, .large-font a, 
+  .large-font button, .large-font label {
+    font-size: 1.5rem !important;
+  }
+  
+  .large-font .page-container {
+    padding: 2rem !important;
+  }
+}
+
