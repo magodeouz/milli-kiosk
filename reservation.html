@@ -353,4 +353,66 @@
 </div>
 </main>
 </div>
-</body><script src="./i18n.js"></script><script src="./router.js"></script><script src="./countdown.js"></script><script src="./high-contrast.js"></script><script src="./large-font.js"></script></html>
+</body><script src="./i18n.js"></script><script src="./router.js"></script><script src="./countdown.js"></script><script src="./high-contrast.js"></script><script src="./large-font.js"></script><script src="./screen-reader.js"></script>
+<script>
+// Enhanced voice guidance for reservation page
+(function() {
+  document.addEventListener('DOMContentLoaded', () => {
+    // Wait for screen reader to initialize
+    setTimeout(() => {
+      if (!window.screenReader || !window.screenReader.isEnabled()) return;
+
+      // Hall card clicks
+      const hallCards = document.querySelectorAll('[data-hall]');
+      hallCards.forEach(card => {
+        card.addEventListener('click', () => {
+          const hallName = card.querySelector('h3')?.textContent || 'Salon';
+          const capacity = card.querySelector('[data-i18n*="capacity"]')?.textContent || '';
+          window.screenReader.speak(`${hallName} seçildi. ${capacity}`);
+        });
+      });
+
+      // Date input
+      const dateInput = document.querySelector('input[type="date"]');
+      if (dateInput) {
+        dateInput.addEventListener('change', (e) => {
+          const selectedDate = e.target.value;
+          if (selectedDate) {
+            window.screenReader.speak(`Tarih seçildi: ${selectedDate}`);
+          }
+        });
+      }
+
+      // Time input
+      const timeInput = document.querySelector('input[type="time"]');
+      if (timeInput) {
+        timeInput.addEventListener('change', (e) => {
+          const selectedTime = e.target.value;
+          if (selectedTime) {
+            window.screenReader.speak(`Saat seçildi: ${selectedTime}`);
+          }
+        });
+      }
+
+      // Seat type filters
+      const seatFilters = document.querySelectorAll('input[name="seat-type"]');
+      seatFilters.forEach(filter => {
+        filter.addEventListener('change', (e) => {
+          const label = document.querySelector(`label[for="${e.target.id}"]`);
+          const filterName = label?.textContent.trim() || 'Filtre';
+          window.screenReader.speak(`${filterName} seçildi`);
+        });
+      });
+
+      // Confirm button
+      const confirmButton = document.querySelector('[data-i18n="reservation.cta.confirm"]');
+      if (confirmButton) {
+        confirmButton.addEventListener('click', () => {
+          window.screenReader.speak('Rezervasyon onaylanıyor');
+        });
+      }
+    }, 1000);
+  });
+})();
+</script>
+</html>

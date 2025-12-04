@@ -388,5 +388,41 @@
 </div>
 </main>
 </div>
-</body><script src="./i18n.js"></script><script src="./router.js"></script><script src="./countdown.js"></script><script src="./high-contrast.js"></script><script src="./large-font.js"></script></html>
+</body><script src="./i18n.js"></script><script src="./router.js"></script><script src="./countdown.js"></script><script src="./high-contrast.js"></script><script src="./large-font.js"></script><script src="./screen-reader.js"></script>
+<script>
+// Enhanced voice guidance for my reservations page
+(function() {
+  document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      if (!window.screenReader || !window.screenReader.isEnabled()) return;
+
+      // Tab switches
+      const tabs = document.querySelectorAll('[role="tab"]');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const tabName = tab.textContent.trim();
+          window.screenReader.speak(`${tabName} sekmesi`);
+        });
+      });
+
+      // Seat change button
+      const seatChangeButtons = document.querySelectorAll('[data-i18n*="seatChange"]');
+      seatChangeButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          window.screenReader.speak('Koltuk değişimine yönlendiriliyorsunuz');
+        });
+      });
+
+      // Cancel buttons
+      const cancelButtons = document.querySelectorAll('[data-i18n*="cancel"]');
+      cancelButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          window.screenReader.speak('Rezervasyon iptali');
+        });
+      });
+    }, 1000);
+  });
+})();
+</script>
+</html>
 

@@ -289,7 +289,44 @@
 </div>
 </div>
 </div>
-</body><script src="./i18n.js"></script><script src="./router.js"></script><script src="./countdown.js"></script><script src="./high-contrast.js"></script><script src="./large-font.js"></script>
+</body><script src="./i18n.js"></script><script src="./router.js"></script><script src="./countdown.js"></script><script src="./high-contrast.js"></script><script src="./large-font.js"></script><script src="./screen-reader.js"></script>
+<script>
+// Enhanced voice guidance for break page
+(function() {
+  document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      if (!window.screenReader || !window.screenReader.isEnabled()) return;
+
+      // Break duration buttons
+      const breakButtons = document.querySelectorAll('[data-break-duration]');
+      breakButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const duration = btn.getAttribute('data-break-duration');
+          const text = btn.textContent.trim();
+          window.screenReader.speak(`${text} mola başlatıldı`);
+        });
+      });
+
+      // Start break button
+      const startButton = document.querySelector('[data-i18n*="startBreak"]');
+      if (startButton) {
+        startButton.addEventListener('click', () => {
+          window.screenReader.speak('Mola başlatılıyor');
+        });
+      }
+
+      // End break button
+      const endButton = document.querySelector('[data-i18n*="endBreak"]');
+      if (endButton) {
+        endButton.addEventListener('click', () => {
+          window.screenReader.speak('Mola sonlandırılıyor');
+        });
+      }
+    }, 1000);
+  });
+})();
+</script>
+
 <script>
   // Update page title on language change
   function updatePageTitle() {

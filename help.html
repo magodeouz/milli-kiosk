@@ -287,7 +287,45 @@
 </div>
 </div>
 </div>
-</body><script src="./i18n.js"></script><script src="./router.js"></script><script src="./countdown.js"></script><script src="./high-contrast.js"></script><script src="./large-font.js"></script>
+</body><script src="./i18n.js"></script><script src="./router.js"></script><script src="./countdown.js"></script><script src="./high-contrast.js"></script><script src="./large-font.js"></script><script src="./screen-reader.js"></script>
+<script>
+// Enhanced voice guidance for help page
+(function() {
+  document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      if (!window.screenReader || !window.screenReader.isEnabled()) return;
+
+      // Guideline toggle
+      const guidelineToggle = document.getElementById('toggle-guideline-btn');
+      if (guidelineToggle) {
+        guidelineToggle.addEventListener('click', () => {
+          const isExpanded = guidelineToggle.getAttribute('aria-expanded') === 'true';
+          window.screenReader.speak(isExpanded ? 'Kullanım kılavuzu kapatıldı' : 'Kullanım kılavuzu açıldı');
+        });
+      }
+
+      // Request type radios
+      const requestTypes = document.querySelectorAll('input[name="request-type"]');
+      requestTypes.forEach(radio => {
+        radio.addEventListener('change', (e) => {
+          const label = document.querySelector(`label[for="${e.target.id}"]`);
+          const requestName = label?.textContent.trim() || '';
+          window.screenReader.speak(`Talep türü seçildi: ${requestName}`);
+        });
+      });
+
+      // Submit button
+      const submitButton = document.querySelector('[data-i18n*="submit"]');
+      if (submitButton) {
+        submitButton.addEventListener('click', () => {
+          window.screenReader.speak('Destek talebi gönderiliyor');
+        });
+      }
+    }, 1000);
+  });
+})();
+</script>
+
 <script>
   // Kullanım Kılavuzu Toggle
   (function () {

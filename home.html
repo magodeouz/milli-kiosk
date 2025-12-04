@@ -413,7 +413,7 @@
             <div class="flex flex-col">
               <p class="text-[#111618] dark:text-white text-sm font-medium leading-normal" data-i18n="settings.accessibility.screenReader">Ekran Okuyucu</p>
             </div>
-            <input class="form-switch h-6 w-11 shrink-0 cursor-pointer appearance-none rounded-full border-2 border-transparent bg-[#dce3e5] dark:bg-gray-700 checked:border-none checked:bg-primary focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 dark:focus:ring-offset-background-dark/50" role="switch" type="checkbox"/>
+            <input id="screen-reader-toggle" class="form-switch h-6 w-11 shrink-0 cursor-pointer appearance-none rounded-full border-2 border-transparent bg-[#dce3e5] dark:bg-gray-700 checked:border-none checked:bg-primary focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 dark:focus:ring-offset-background-dark/50" role="switch" type="checkbox" aria-label="Ekran okuyucu açık kapat"/>
           </label>
           <label class="flex items-center justify-between gap-4 rounded-lg border border-solid border-[#dce3e5] dark:border-gray-700 p-4 cursor-pointer hover:border-primary/50 dark:hover:border-primary/50 transition-colors">
             <div class="flex flex-col">
@@ -430,6 +430,7 @@
 <script src="./router.js"></script>
 <script src="./high-contrast.js"></script>
 <script src="./large-font.js"></script>
+<script src="./screen-reader.js"></script>
 <script>
   (function () {
     const modal = document.getElementById("settings-modal");
@@ -610,6 +611,43 @@
 
     // Initialize
     loadLargeFont();
+  })();
+
+  // Screen Reader Mode Handler
+  (function () {
+    const toggle = document.getElementById("screen-reader-toggle");
+    
+    if (!toggle) return;
+
+    // Load saved preference
+    const loadScreenReader = () => {
+      const isScreenReader = localStorage.getItem("mk-screen-reader") === "true";
+      if (isScreenReader) {
+        toggle.checked = true;
+      }
+    };
+
+    // Toggle screen reader
+    toggle.addEventListener("change", (event) => {
+      if (event.target.checked) {
+        localStorage.setItem("mk-screen-reader", "true");
+        if (window.screenReader) {
+          window.screenReader.enable();
+          window.screenReader.speak("Ekran okuyucu açıldı. Sesli rehberlik aktif.");
+        }
+      } else {
+        localStorage.setItem("mk-screen-reader", "false");
+        if (window.screenReader) {
+          window.screenReader.speak("Ekran okuyucu kapatıldı.");
+          setTimeout(() => {
+            window.screenReader.disable();
+          }, 2000);
+        }
+      }
+    });
+
+    // Initialize
+    loadScreenReader();
   })();
 </script>
 </html>

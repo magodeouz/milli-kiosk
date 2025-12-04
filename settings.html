@@ -258,4 +258,37 @@
 </div>
 </div>
 
-</body><script src="./i18n.js"></script><script src="./router.js"></script><script src="./countdown.js"></script><script src="./high-contrast.js"></script><script src="./large-font.js"></script></html>
+</body><script src="./i18n.js"></script><script src="./router.js"></script><script src="./countdown.js"></script><script src="./high-contrast.js"></script><script src="./large-font.js"></script><script src="./screen-reader.js"></script>
+<script>
+// Enhanced voice guidance for settings page
+(function() {
+  document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      if (!window.screenReader || !window.screenReader.isEnabled()) return;
+
+      // Language selection
+      const langRadios = document.querySelectorAll('input[name="language"]');
+      langRadios.forEach(radio => {
+        radio.addEventListener('change', (e) => {
+          const label = document.querySelector(`label[for="${e.target.id}"]`);
+          const langName = label?.textContent.trim() || '';
+          window.screenReader.speak(`Dil değiştirildi: ${langName}`);
+        });
+      });
+
+      // Accessibility toggles
+      const accessibilityToggles = document.querySelectorAll('.form-switch');
+      accessibilityToggles.forEach(toggle => {
+        toggle.addEventListener('change', (e) => {
+          const label = e.target.closest('label')?.querySelector('p')?.textContent || '';
+          const state = e.target.checked ? 'açıldı' : 'kapatıldı';
+          if (label && toggle.id !== 'screen-reader-toggle') {
+            window.screenReader.speak(`${label} ${state}`);
+          }
+        });
+      });
+    }, 1000);
+  });
+})();
+</script>
+</html>
