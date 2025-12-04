@@ -9,6 +9,7 @@
   <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700&amp;display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+  <link href="./high-contrast.css" rel="stylesheet" />
   <script>
     tailwind.config = {
       darkMode: "class",
@@ -362,8 +363,8 @@
           <button id="open-settings-modal-accessibility" type="button" class="flex flex-1 items-center justify-center gap-3 rounded-xl h-14 px-6 bg-slate-50 dark:bg-gray-700 text-slate-800 dark:text-white text-base font-bold transition-all hover:bg-slate-100 dark:hover:bg-gray-600 hover:shadow-lg hover:scale-[1.02] border-2 border-slate-200 dark:border-gray-600" aria-label="Erişilebilirlik Ayarları">
             <span class="material-symbols-outlined text-xl text-primary" data-icon="accessibility_new">accessibility_new</span>
             <span data-i18n="settings.accessibility.title">Erişilebilirlik</span>
-          </button>
-        </div>
+        </button>
+      </div>
       </main>
     </div>
   <div id="settings-modal" class="modal-overlay" aria-hidden="true">
@@ -405,7 +406,7 @@
             <div class="flex flex-col">
               <p class="text-[#111618] dark:text-white text-sm font-medium leading-normal" data-i18n="settings.accessibility.highContrast">Yüksek Kontrast</p>
             </div>
-            <input class="form-switch h-6 w-11 shrink-0 cursor-pointer appearance-none rounded-full border-2 border-transparent bg-[#dce3e5] dark:bg-gray-700 checked:border-none checked:bg-primary focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 dark:focus:ring-offset-background-dark/50" role="switch" type="checkbox"/>
+            <input id="high-contrast-toggle" class="form-switch h-6 w-11 shrink-0 cursor-pointer appearance-none rounded-full border-2 border-transparent bg-[#dce3e5] dark:bg-gray-700 checked:border-none checked:bg-primary focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 dark:focus:ring-offset-background-dark/50" role="switch" type="checkbox"/>
           </label>
           <label class="flex items-center justify-between gap-4 rounded-lg border border-solid border-[#dce3e5] dark:border-gray-700 p-4 cursor-pointer hover:border-primary/50 dark:hover:border-primary/50 transition-colors">
             <div class="flex flex-col">
@@ -426,6 +427,7 @@
 </body>
 <script src="./i18n.js"></script>
 <script src="./router.js"></script>
+<script src="./high-contrast.js"></script>
 <script>
   (function () {
     const modal = document.getElementById("settings-modal");
@@ -546,6 +548,36 @@
         }, 1500); // 1.5 second delay for loading effect
       });
     });
+  })();
+
+  // High Contrast Mode Handler
+  (function () {
+    const toggle = document.getElementById("high-contrast-toggle");
+    
+    if (!toggle) return;
+
+    // Load saved preference
+    const loadHighContrast = () => {
+      const isHighContrast = localStorage.getItem("mk-high-contrast") === "true";
+      if (isHighContrast) {
+        document.documentElement.classList.add("high-contrast");
+        toggle.checked = true;
+      }
+    };
+
+    // Toggle high contrast
+    toggle.addEventListener("change", (event) => {
+      if (event.target.checked) {
+        document.documentElement.classList.add("high-contrast");
+        localStorage.setItem("mk-high-contrast", "true");
+      } else {
+        document.documentElement.classList.remove("high-contrast");
+        localStorage.setItem("mk-high-contrast", "false");
+      }
+    });
+
+    // Initialize
+    loadHighContrast();
   })();
 </script>
 </html>

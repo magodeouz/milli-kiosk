@@ -1,0 +1,94 @@
+/* High Contrast Mode Styles */
+.high-contrast body {
+  background: #000000 !important;
+}
+
+.high-contrast .page-container {
+  background-color: #000000 !important;
+  border: 3px solid #FFFF00 !important;
+}
+
+.high-contrast .content-panel {
+  background: #000000 !important;
+  border: 2px solid #FFFF00 !important;
+}
+
+.high-contrast h1, .high-contrast h2, .high-contrast h3, 
+.high-contrast p, .high-contrast span, .high-contrast a,
+.high-contrast button, .high-contrast label {
+  color: #FFFF00 !important;
+}
+
+.high-contrast header {
+  background: #000000 !important;
+  border: 2px solid #FFFF00 !important;
+}
+
+.high-contrast button, .high-contrast a.flex {
+  background: #000000 !important;
+  border: 2px solid #FFFF00 !important;
+  color: #FFFF00 !important;
+}
+
+.high-contrast button:hover, .high-contrast a.flex:hover {
+  background: #FFFF00 !important;
+  color: #000000 !important;
+}
+
+.high-contrast .material-symbols-outlined {
+  color: #FFFF00 !important;
+}
+
+.high-contrast img {
+  border: 2px solid #FFFF00;
+  filter: contrast(1.5);
+}
+
+.high-contrast .modal-content,
+.high-contrast .modal-overlay {
+  background: #000000 !important;
+  border: 3px solid #FFFF00 !important;
+}
+
+.high-contrast .modal-body {
+  background: #000000 !important;
+}
+
+.high-contrast input, .high-contrast textarea, .high-contrast select {
+  background: #000000 !important;
+  border: 2px solid #FFFF00 !important;
+  color: #FFFF00 !important;
+}
+
+.high-contrast .menu-bar,
+.high-contrast .menu-item {
+  background: #000000 !important;
+  border-color: #FFFF00 !important;
+}
+
+.high-contrast .menu-item.active {
+  background: #FFFF00 !important;
+  color: #000000 !important;
+}
+
+.high-contrast .menu-item.active .material-symbols-outlined {
+  color: #000000 !important;
+}
+
+.high-contrast .reservation-card,
+.high-contrast .info-card {
+  background: #000000 !important;
+  border: 2px solid #FFFF00 !important;
+}
+
+.high-contrast .status-badge {
+  background: #FFFF00 !important;
+  color: #000000 !important;
+}
+
+.high-contrast .logo-card,
+.high-contrast .user-info {
+  background: #000000 !important;
+  border: 2px solid #FFFF00 !important;
+}
+
